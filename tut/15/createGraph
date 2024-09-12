@@ -1,0 +1,21 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+time=0.5
+
+graphName="Ma.eps"
+gnuplot<<EOF
+    set terminal postscript eps color enhanced
+    set output "$graphName"
+    set grid
+    set xlabel "x (m/s)"  font 'Times,21,Bold'
+    set ylabel "Ma (m)"  font 'Times,21,Bold'
+    set key top left
+    set size 0.75, 0.75
+    set xrange [0:10]
+    set yrange [0:2]
+    plot "postProcessing/samples/$time/linex.xy" using 1:2 title "OpenFOAM" with linespoints lt -1 lw 5 pt 7 ps 1,\
+        "data/ana" using 1:2 title "Analytical" with points pt 6 ps 1 lc rgb "red"
+EOF
+
+

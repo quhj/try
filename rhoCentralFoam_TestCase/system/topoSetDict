@@ -1,0 +1,121 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  plus                                  |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    {
+        name    throatFaceSet;
+        type    faceSet;
+        action  new;
+        source  boxToFace;
+        sourceInfo
+        {
+            box (0 0 -1)(0.0001 0.245 1);
+        }
+    }
+
+     {
+        name    inletFaceSet;
+        type    faceSet;
+        action  new;
+        source  boxToFace;
+        sourceInfo
+        {
+            box (-0.4001 0 -1)(-0.4 0.3 1);
+        }
+    }
+
+     {
+        name    middleFaceSet;
+        type    faceSet;
+        action  new;
+        source  boxToFace;
+        sourceInfo
+        {
+            box (0.75 0 -1)(0.75001 0.27 1);
+        }
+    }
+
+
+
+    {
+        name    throatFaces;
+        type    faceZoneSet;
+        action  new;
+        source  setToFaceZone;
+        sourceInfo
+        {
+            faceSet throatFaceSet;
+        }
+    }
+
+   {
+        name    inletFaces;
+        type    faceZoneSet;
+        action  new;
+        source  setToFaceZone;
+        sourceInfo
+        {
+            faceSet inletFaceSet;
+        }
+    }
+
+    {
+        name    middleFaces;
+        type    faceZoneSet;
+        action  new;
+        source  setToFaceZone;
+        sourceInfo
+        {
+            faceSet middleFaceSet;
+        }
+    }
+
+ 
+    {
+        name    throatCellSet;
+        type    cellSet;
+        action  new;
+        source  faceToCell;
+        sourceInfo
+        {
+            set throatFaceSet;
+            option owner;
+        }
+    }
+
+
+   
+ {
+        name    throatCells;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set throatCellSet;
+        }
+    }
+
+
+
+   
+
+    
+);
+
+// ************************************************************************* //

@@ -1,0 +1,174 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.x                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      epsilon.water;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 2 -3 0 0 0 0];
+
+internalField   uniform 1e-3;
+
+boundaryField
+{
+	INLET2
+    {
+		type            codedFixedValue;
+        redirectType    fullyDevelopedInlet2;
+
+        code
+		#{
+			const fvPatch& boundaryPatch = this->patch();
+			vectorField meshC = boundaryPatch.Cf();
+			scalar kappa = 0.435;
+			scalar lambda = 0.09;
+			scalar delta = 0.008;
+			scalarField lm = boundaryPatch.magSf();
+			scalarField epsi = boundaryPatch.magSf();
+
+			forAll(boundaryPatch, faceI)
+			{   
+				if(meshC[faceI].x() < 0.3)
+				{
+					scalar dis = meshC[faceI].x() - 0.2;
+					if(meshC[faceI].x() < delta)
+					{
+						if(dis/delta < lambda/kappa)
+						{
+							lm[faceI] = kappa*dis;
+						}
+						else
+						{
+							lm[faceI] = lambda*delta;
+						}
+					}
+					else
+					{
+						lm[faceI] = 0.1*(0.14 - 0.08*sqr(1.0 - dis/0.1) - 0.06*pow(1.0 - dis/0.1, 4.0));
+					}
+				}
+				else
+				{
+					scalar dis = 0.4 - meshC[faceI].x();
+					if(meshC[faceI].x() < delta)
+					{
+						if(dis/delta < lambda/kappa)
+						{
+							lm[faceI] = kappa*dis;
+						}
+						else
+						{
+							lm[faceI] = lambda*delta;
+						}
+					}
+					else
+					{
+						lm[faceI] = 0.1*(0.14 - 0.08*sqr(1.0 - dis/0.1) - 0.06*pow(1.0 - dis/0.1, 4.0));
+					}
+
+				}
+
+				epsi[faceI] = 0.164/lm[faceI]*pow(0.047, 1.5);
+			}
+
+			operator == (epsi);
+        #};
+        
+        value           $internalField;
+    }
+
+	INLET1
+    {
+		type            codedFixedValue;
+        redirectType    fullyDevelopedInlet1;
+
+        code
+		#{
+			const fvPatch& boundaryPatch = this->patch();
+			vectorField meshC = boundaryPatch.Cf();
+			scalar kappa = 0.435;
+			scalar lambda = 0.09;
+			scalar delta = 0.03;
+			scalarField lm = boundaryPatch.magSf();
+			scalarField epsi = boundaryPatch.magSf();
+
+			forAll(boundaryPatch, faceI)
+			{   
+				if(meshC[faceI].x() < 0.1)
+				{
+					scalar dis = meshC[faceI].x() - 0.0;
+					if(meshC[faceI].x() < delta)
+					{
+						if(dis/delta < lambda/kappa)
+						{
+							lm[faceI] = kappa*dis;
+						}
+						else
+						{
+							lm[faceI] = lambda*delta;
+						}
+					}
+					else
+					{
+						lm[faceI] = 0.1*(0.14 - 0.08*sqr(1.0 - dis/0.1) - 0.06*pow(1.0 - dis/0.1, 4.0));
+					}
+				}
+				else
+				{
+					scalar dis = 0.2 - meshC[faceI].x();
+					if(meshC[faceI].x() < delta)
+					{
+						if(dis/delta < lambda/kappa)
+						{
+							lm[faceI] = kappa*dis;
+						}
+						else
+						{
+							lm[faceI] = lambda*delta;
+						}
+					}
+					else
+					{
+						lm[faceI] = 0.1*(0.14 - 0.08*sqr(1.0 - dis/0.1) - 0.06*pow(1.0 - dis/0.1, 4.0));
+					}
+
+				}
+
+				epsi[faceI] = 0.164/lm[faceI]*pow(0.03, 1.5);
+			}
+
+			operator == (epsi);
+        #};
+        
+        value           $internalField;
+    }
+
+    OUTLET
+    {
+        type            inletOutlet;
+        inletValue      $internalField;
+        value           $internalField;
+    }
+
+    WALLS
+    {
+        type            epsilonWallFunction;
+        value           $internalField;
+    }
+
+    defaultFaces
+    {
+        type            empty;
+    }
+}
+
+// ************************************************************************* //

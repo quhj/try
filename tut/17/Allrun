@@ -1,0 +1,20 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+
+touch case.foam
+
+
+foamCleanTutorials
+
+runApplication fluentMeshToFoam -writeZones fluent.msh
+runApplication createPatch -overwrite
+runApplication topoSet
+runApplication refineMesh -overwrite
+runApplication setFields
+runApplication interFoam
+
+
+#------------------------------------------------------------------------------

@@ -1,0 +1,158 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.1                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     rhoCentralFoamFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         6e-01;
+
+deltaT          2e-06;
+
+writeControl    timeStep;
+
+writeInterval   50;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  6;
+
+writeCompression compressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+adjustTimeStep  yes;
+
+maxCo           0.2;
+
+maxDeltaT       1;
+/*
+functions
+{
+
+   throatFlux
+    {
+        type            surfaceFieldValue;
+        functionObjectLibs ("libfieldFunctionObjects.so");
+         //enabled        true;
+        //outputControl   timeStep;
+        log             true;
+        // Output field values as well
+        writeControl     writeTime;
+        writeFields      true;
+        //valueOutput     false;
+        //surfaceFormat    none;
+        regionType      faceZone;
+        name            throatFaces;
+        operation       sum;
+        surfaceFormat   vtk;
+
+        fields
+        (
+            phi
+                    
+        );
+    }
+
+   throatPressure
+    {
+        type            volFieldValue;
+        functionObjectLibs ("libfieldFunctionObjects.so");
+         //enabled        true;
+        //outputControl   timeStep;
+        log             true;
+        // Output field values as well
+        writeControl     writeTime;
+        writeFields      true;
+        //valueOutput     false;
+        //surfaceFormat    none;
+        regionType      cellZone;
+        name            throatCells;
+        operation       volAverage;
+        surfaceFormat   vtk;
+
+        fields
+        (
+            p
+            U
+            T
+                    
+        );
+    }
+
+   inletFlux
+    {
+        type            surfaceFieldValue;
+        functionObjectLibs ("libfieldFunctionObjects.so");
+         //enabled        true;
+        //outputControl   timeStep;
+        log             true;
+        // Output field values as well
+        writeControl     writeTime;
+        writeFields      true;
+        //valueOutput     false;
+        //surfaceFormat    none;
+        regionType      faceZone;
+        name            inletFaces;
+        operation       sum;
+        surfaceFormat   vtk;
+
+        fields
+        (
+            phi                    
+        );
+    }
+
+   middleFlux
+    {
+        type            surfaceFieldValue;
+        functionObjectLibs ("libfieldFunctionObjects.so");
+         //enabled        true;
+        //outputControl   timeStep;
+        log             true;
+        // Output field values as well
+        writeControl     writeTime;
+        writeFields      true;
+        //valueOutput     false;
+        //surfaceFormat    none;
+        regionType      faceZone;
+        name            middleFaces;
+        operation       sum;
+        surfaceFormat   vtk;
+
+        fields
+        (
+            phi                    
+        );
+    }
+
+
+
+    }
+*/
+// ************************************************************************* //
+

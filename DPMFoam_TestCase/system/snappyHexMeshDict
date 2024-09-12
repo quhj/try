@@ -1,0 +1,137 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      snappyHexMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#includeEtc "caseDicts/mesh/generation/snappyHexMeshDict.cfg"
+
+castellatedMesh on;
+snap            on;
+addLayers       off;
+
+geometry
+{
+    buildings.obj
+    {
+        type triSurfaceMesh;
+        name buildings;
+    }
+
+    refinementBox
+    {
+        type searchableBox;
+        min  (  0   0   0);
+        max  (250 180  90);
+    }
+    refinementBox1
+    {
+        type searchableBox;
+        min  (  150   15   0);
+        max  (170 25  15);
+    }
+    chimney1.stl
+    {
+        type triSurfaceMesh;
+        name chimney1;
+    }
+
+     chimney2.stl
+    {
+        type triSurfaceMesh;
+        name chimney2;
+    }
+
+};
+
+castellatedMeshControls
+{
+    features
+    (
+      { file  "buildings.eMesh"; level 1; }
+      { file  "chimney1.eMesh"; level 3; }
+      { file  "chimney2.eMesh"; level 3; }
+    );
+
+    refinementSurfaces
+    {
+        buildings
+        {
+            level (3 3);
+            patchInfo { type wall; }
+        }
+         chimney1
+        {
+            level (5 5);
+            patchInfo { type wall; }
+        }
+         chimney2
+        {
+            level (5 5);
+            patchInfo { type wall; }
+        }
+    }
+
+    refinementRegions
+    {
+        refinementBox
+        {
+            mode inside;
+            levels ((1E15 2));
+        }
+        refinementBox1
+        {
+            mode inside;
+            levels ((1E15 5));
+        }
+    }
+
+    locationInMesh (1 1 1);
+}
+
+snapControls
+{
+    explicitFeatureSnap    true;
+    implicitFeatureSnap    false;
+}
+
+addLayersControls
+{
+    layers
+    {
+        "(buildings|ground|chimney1|chimney2).*"
+        {
+            nSurfaceLayers 2;
+        }
+    }
+
+    relativeSizes       true;
+    expansionRatio      1.2;
+    finalLayerThickness 0.5;
+    minThickness        1e-3;
+}
+
+meshQualityControls
+{
+}
+
+writeFlags
+(
+    scalarLevels
+    layerSets
+    layerFields
+);
+
+mergeTolerance 1e-6;
+
+// ************************************************************************* //

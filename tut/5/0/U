@@ -1,0 +1,69 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.1                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "0";
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    //inlet
+    //{
+    //    type        flowRateInletVelocity;
+    //    volumetricFlowRate 1.525017e-05;
+    //    value       uniform (0 0 0);
+    //}
+    inlet
+    {
+        type            codedFixedValue;
+        name            dummy;
+        value           uniform (0 0 0);
+        
+        redirectType    inletLaminarSquareProfile;
+        code
+        #{
+             const vectorField& Cf = patch().Cf(); 
+
+             const scalar H	= 0.0052; 
+             const scalar Umax = 0.879542893; 
+
+             forAll(Cf, faceI) // loop over all the patch faces
+             {
+                const scalar y = Cf[faceI].y() - 0.0049; 
+                (*this)[faceI] = vector(Umax*(4*y/H-4*sqr(y/H)), 0, 0);
+             }
+         #};
+    }
+
+    outlet
+    {
+        type            zeroGradient;
+    }
+
+    walls
+    {
+        type           noSlip;
+    }
+
+    symmetry
+    {
+        type           symmetry;
+    }
+}
+
+
+// ************************************************************************* //

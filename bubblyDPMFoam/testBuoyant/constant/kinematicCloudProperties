@@ -1,0 +1,207 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.x                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      particleProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solution
+{
+    active          true;
+    coupled         false;//Accumulate carrier phase source terms
+	calculatePU		false;
+    transient       yes;
+    cellValueSourceCorrection off;
+    maxCo	0.01;
+
+    interpolationSchemes
+    {
+        rho.water         cell;
+        U.water           cellPoint;
+        mu.water          cell;
+		DUcDt				cell;
+    }
+
+	//- must be Euler for buoyant force
+    integrationSchemes
+    {
+        U               Euler;
+    }
+
+    sourceTerms
+    {
+        schemes
+        {
+            U semiImplicit 1;
+        }
+    }
+}
+
+constantProperties
+{
+    parcelTypeId 	1;
+
+    rhoMin          1e-15;
+    minParcelMass   1e-15;
+
+    rho0            1;
+    youngsModulus   1e-8;
+    poissonsRatio   1e-8;
+
+    constantVolume  false;
+
+    alphaMax        0.99;
+}
+
+subModels
+{
+    particleForces
+    {
+		//sphereDrag
+		//{
+		//	constantValue	0.1;
+		//}
+
+		gravity;
+
+     	//pressureGradient
+     	//{
+     	//    U	U.water;
+     	//}
+
+		//SaffmanMeiLiftForce
+		//{
+		//	sigma	0.072;
+			//    	U	U.water;
+		//}
+    }
+
+    injectionModels
+    {
+		model1
+        {
+            //type            patchInjection;//manualInjection;
+            type            manualInjection;
+			positionsFile	"kinematicCloudPositions";
+			parcelsPerInjector	1;
+			patchName	    inlet;
+            massTotal       0;
+            parcelBasisType fixed;
+            nParticle       1;
+            SOI             0;
+			parcelsPerSecond	100;//6*Q/pi/(d^3)
+            U0              (0 0 0);
+            sizeDistribution
+            {
+                type        fixedValue;
+                fixedValueDistribution
+                {
+					value	1e-3;	
+                }
+            }
+			flowRateProfile	constant 1.92e-5;
+			duration	700;
+        }
+    }
+
+    dispersionModel none;
+
+    patchInteractionModel none;
+    //patchInteractionModel localInteraction;
+
+    localInteractionCoeffs
+    {
+        patches
+        (
+            inlet
+            {
+                type escape;
+                e    1e-5;
+                mu   1e-5;
+            }
+            outlet
+            {
+                type escape;
+                e    0.97;
+                mu   0.09;
+            }
+            
+            frontAndBack
+            {
+                type rebound;
+                e    0.97;
+                mu   0.09;
+            }
+        );
+    }
+
+    StandardWallInteractionCoeffs
+    {
+        type rebound;
+        e    0.97;
+        mu   0.09;
+    }
+
+    heatTransferModel none;
+
+    surfaceFilmModel none;
+
+    collisionModel none;
+    //collisionModel pairCollision;
+
+    pairCollisionCoeffs
+    {
+        maxInteractionDistance  0.01;
+
+        writeReferredParticleCloud no;
+
+        pairModel pairSpringSliderDashpot;
+
+        pairSpringSliderDashpotCoeffs
+        {
+            useEquivalentSize   no;
+            alpha               1;
+            b                   1;
+            mu                  0;
+            cohesionEnergyDensity 0;
+            collisionResolutionSteps 12;
+        };
+
+        wallModel wallSpringSliderDashpot;
+
+        wallSpringSliderDashpotCoeffs
+        {
+            useEquivalentSize no;
+            collisionResolutionSteps 12;
+            youngsModulus   1e-8;
+    	    poissonsRatio   1e-8; 
+            alpha           1;
+            b               1;
+            mu              0;
+            cohesionEnergyDensity 0;
+        };
+
+        U     U.water;
+    }
+
+    stochasticCollisionModel none;
+
+    radiation off;
+}
+
+
+cloudFunctions
+{}
+
+
+// ************************************************************************* //

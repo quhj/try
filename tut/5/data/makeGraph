@@ -1,0 +1,63 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+time=235
+
+graphName="beckerU015T.eps"
+gnuplot<<EOF
+set terminal postscript eps color enhanced 
+set output "$graphName"
+set grid
+set size 0.4, 1.1
+set multiplot layout 5, 1 title "" 
+set xlabel "" 
+set ylabel "Ux" 
+
+set xrange [0:0.01]
+set yrange [-0.2:1]
+
+set xtics ("2.5" 0.0025, "5" 0.005, "7.5" 0.0075)
+set ytics ("-0.2" -0.2, "0.4" 0.4, "1" 1)
+
+set size 0.4, 0.23
+set xlabel offset 0,2,0
+set xtics offset 0,2,0
+set xtics ("" 0.0025, "" 0.005, "" 0.0075)
+plot "4" using 1:2 title "" with points lc rgb "black" pt 6 ps 1,\
+     "../postProcessing/sampleDict/$time/S4.xy" t "" with lines lw 5 lc rgb "black"
+
+set size 0.4, 0.23
+set xlabel offset 0,2,0
+set xtics offset 0,2,0
+set xtics ("" 0.0025, "" 0.005, "" 0.0075)
+plot "3" using 1:2 title "" with points lc rgb "black" pt 6 ps 1,\
+     "../postProcessing/sampleDict/$time/S3.xy" t "" with lines lw 5 lc rgb "black"
+
+set size 0.4, 0.23
+set xlabel offset 0,2,0
+set xtics offset 0,2,0
+set xtics ("" 0.0025, "" 0.005, "" 0.0075)
+plot "2" using 1:2 title "" with points lc rgb "black" pt 6 ps 1,\
+     "../postProcessing/sampleDict/$time/S2.xy" t "" with lines lw 5 lc rgb "black"
+
+set size 0.4, 0.23
+set xlabel offset 0,2,0
+set xtics offset 0,2,0
+set xtics ("" 0.0025, "" 0.005, "" 0.0075)
+plot "1" using 1:2 title "" with points lc rgb "black" pt 6 ps 1,\
+     "../postProcessing/sampleDict/$time/S1.xy" t "" with lines lw 5 lc rgb "black"
+
+set xtics ("2.5" 0.0025, "5" 0.005, "7.5" 0.0075)
+set xlabel offset 0,0.5,0
+set xtics offset 0,-0,0
+set xlabel "x/S" 
+set size 0.4, 0.25
+plot "0" using 1:2 title "" with points lc rgb "black" pt 6 ps 1,\
+     "../postProcessing/sampleDict/$time/S0.xy" t "" with lines lw 5 lc rgb "black"
+
+unset multiplot   
+EOF
+
+
+
+

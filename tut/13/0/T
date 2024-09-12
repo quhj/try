@@ -1,0 +1,102 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 1 0 0 0];
+
+//internalField uniform 300;
+internalField #codeStream
+{
+	codeInclude
+	#{
+		#include "fvCFD.H"
+	#};
+	
+	codeOptions
+	#{
+		-I$(LIB_SRC)/finiteVolume/lnInclude \
+		-I$(LIB_SRC)/meshTools/lnInclude
+	#};
+	
+	codeLibs
+	#{
+		-lmeshTools \
+		-lfiniteVolume
+	#};
+	
+	code
+	#{
+		const IOdictionary& d =static_cast<const IOdictionary&>(dict);
+		const fvMesh& mesh = refCast<const fvMesh>(d.db());
+		scalarField T(mesh.nCells(), (0.));
+		forAll(T,i)
+		{
+			scalar z = mesh.C()[i][2];
+			T[i] = scalar(300+0.003*z);
+		}
+		writeEntry(os," ",T);
+	#};
+};
+ 
+ 
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"
+
+    inlet
+    {
+        type            codedFixedValue;
+        value           uniform 0; //default value
+        name            Tgrad; //name of new BC type
+        code
+        #{
+            const fvPatch& inletPatch = this->patch();
+            
+            scalarField& tf = *this; 
+            forAll(tf, i)
+            { 
+                scalar z = inletPatch.Cf()[i].z();
+                
+                tf[i] = 300+z*0.003; 
+            }
+        #};
+    }
+    outlet
+    {
+    	type            inletOutlet;
+    	inletValue      uniform 300;
+    	value           uniform 300;
+    }
+    
+    top
+    {
+    	type            zeroGradient;
+    }
+    ground
+    {
+        type            zeroGradient;
+    }
+    tower1
+    {
+        type            zeroGradient;
+    }
+    tower2
+    {
+        type            zeroGradient;
+    }
+
+}
+
+
+// ************************************************************************* //

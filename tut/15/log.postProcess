@@ -1,0 +1,387 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  10
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 10-03dd22794e29
+Exec   : postProcess -func samples
+Date   : Sep 04 2024
+Time   : 09:26:54
+Host   : "dyfluid-virtual-machine"
+PID    : 2157686
+I/O    : uncollated
+Case   : /home/dyfluid/OKSnew/tuts/15
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+Reading set description:
+    linex
+
+Time = 0s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.01s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.02s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.03s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.04s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.05s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.06s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.07s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.08s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.09s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.1s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.11s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.12s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.13s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.14s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.15s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.16s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.17s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.18s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.19s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.2s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.21s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.22s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.23s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.24s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.25s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.26s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.27s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.28s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.29s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.3s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.31s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.32s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.33s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.34s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.35s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.36s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.37s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.38s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.39s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.4s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.41s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.42s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.43s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.44s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.45s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.46s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.47s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.48s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.49s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+Time = 0.5s
+
+Reading fields:
+    volScalarFields: Ma
+
+Executing functionObjects
+
+End
+

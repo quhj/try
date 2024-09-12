@@ -1,0 +1,80 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      epsilon.air;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 2 -3 0 0 0 0];
+
+internalField       uniform 0.0002;
+
+boundaryField
+{
+    inlet
+    {
+        type               fixedValue;
+        value              $internalField;
+    }
+
+    outlet
+    {
+        type               inletOutlet;
+        phi                phi.air;
+        inletValue         $internalField;
+        value              $internalField;
+    }
+
+    ground
+    {
+        type               epsilonWallFunction;
+        value              $internalField;
+    }
+     atmosphere
+    {
+        type                symmetry;
+        value               uniform 0;
+    }
+      frontAndBack
+    {
+        type                symmetry;
+        value               uniform 0;
+    }
+      buildings
+    {
+        type               epsilonWallFunction;
+        value              $internalField;
+    }
+      chimney1
+    {
+        type               epsilonWallFunction;
+        value              $internalField;
+    }
+    chimney2
+    {
+        type               epsilonWallFunction;
+        value              $internalField;
+    }
+   inlet1
+    {
+         type               fixedValue;
+         value              $internalField;
+    }
+    inlet2
+    {
+         type               fixedValue;
+         value              $internalField;
+    }
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

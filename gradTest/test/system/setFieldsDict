@@ -1,0 +1,118 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+V 0.0;
+U 1.0;
+
+M0		0.1;
+M1		0.05;
+M2		0.0255625;
+M3		0.0133628767578125;
+M4		0.00714265900977942;
+M5		0.00390376070769414;
+
+
+defaultFieldValues
+(
+    volScalarFieldValue M0		$M0	
+    volScalarFieldValue M1		$M1	
+    volScalarFieldValue M2		$M2	
+    volScalarFieldValue M3		$M3	
+    volScalarFieldValue M4		$M4	
+    volScalarFieldValue M5		$M5	
+
+    volScalarFieldValue M6		#calc "$U*$M0"
+    volScalarFieldValue M7		#calc "$U*$M1"
+    volScalarFieldValue M8		#calc "$U*$M2"
+    volScalarFieldValue M9		#calc "$U*$M3"
+    volScalarFieldValue M10		#calc "$U*$M4"
+    volScalarFieldValue M11		#calc "$U*$M5"
+
+    volScalarFieldValue M12	 	#calc "$U*$V*$M0"
+    volScalarFieldValue M13		#calc "$U*$V*$M1"
+    volScalarFieldValue M14		#calc "$U*$V*$M2"
+
+    volScalarFieldValue M15		#calc "$U*$U*$M0"
+    volScalarFieldValue M16		#calc "$U*$U*$M1"
+    volScalarFieldValue M17		#calc "$U*$U*$M2"
+  
+    volScalarFieldValue M18		#calc "$V*$M0"
+    volScalarFieldValue M19		#calc "$V*$M1"
+    volScalarFieldValue M20	    #calc "$V*$M2"
+    volScalarFieldValue M21	    #calc "$V*$M3"
+    volScalarFieldValue M22		#calc "$V*$M4"
+    volScalarFieldValue M23		#calc "$V*$M5"
+
+    volScalarFieldValue M24		#calc "$U*$V*$M0"
+    volScalarFieldValue M25		#calc "$U*$V*$M1"
+    volScalarFieldValue M26		#calc "$U*$V*$M2"
+
+    volScalarFieldValue M27		#calc "$V*$V*$M0"
+    volScalarFieldValue M28		#calc "$V*$V*$M1"
+    volScalarFieldValue M29		#calc "$V*$V*$M2"
+);
+
+regions
+(
+    boxToCell
+    {
+        box (-0.2 -0.2 -1) (0.2 0.2 1);
+        fieldValues
+        (
+			volScalarFieldValue M0		#calc "10.0*$M0"
+			volScalarFieldValue M1		#calc "10.0*$M1"
+			volScalarFieldValue M2		#calc "10.0*$M2"
+			volScalarFieldValue M3		#calc "10.0*$M3"
+			volScalarFieldValue M4		#calc "10.0*$M4"
+			volScalarFieldValue M5		#calc "10.0*$M5"
+
+
+			volScalarFieldValue M6		#calc "$U*10.0*$M0"
+			volScalarFieldValue M7		#calc "$U*10.0*$M1"
+			volScalarFieldValue M8		#calc "$U*10.0*$M2"
+			volScalarFieldValue M9		#calc "$U*10.0*$M3"
+			volScalarFieldValue M10		#calc "$U*10.0*$M4"
+			volScalarFieldValue M11		#calc "$U*10.0*$M5"
+
+			volScalarFieldValue M12	 	#calc "$U*$V*10.0*$M0"
+			volScalarFieldValue M13		#calc "$U*$V*10.0*$M1"
+			volScalarFieldValue M14		#calc "$U*$V*10.0*$M2"
+
+			volScalarFieldValue M15		#calc "$U*$U*10.0*$M0"
+			volScalarFieldValue M16		#calc "$U*$U*10.0*$M1"
+			volScalarFieldValue M17		#calc "$U*$U*10.0*$M2"
+		  
+			volScalarFieldValue M18		#calc "$V*10.0*$M0"
+			volScalarFieldValue M19		#calc "$V*10.0*$M1"
+			volScalarFieldValue M20	    #calc "$V*10.0*$M2"
+			volScalarFieldValue M21	    #calc "$V*10.0*$M3"
+			volScalarFieldValue M22		#calc "$V*10.0*$M4"
+			volScalarFieldValue M23		#calc "$V*10.0*$M5"
+
+			volScalarFieldValue M24		#calc "$U*$V*10.0*$M0"
+			volScalarFieldValue M25		#calc "$U*$V*10.0*$M1"
+			volScalarFieldValue M26		#calc "$U*$V*10.0*$M2"
+
+			volScalarFieldValue M27		#calc "$V*$V*10.0*$M0"
+			volScalarFieldValue M28		#calc "$V*$V*10.0*$M1"
+			volScalarFieldValue M29		#calc "$V*$V*10.0*$M2"
+        );
+    }
+);
+
+
+// ************************************************************************* //

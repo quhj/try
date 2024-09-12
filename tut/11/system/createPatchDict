@@ -1,0 +1,63 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createPatchDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+pointSync false;
+
+patches
+(
+    {
+        name heater1;
+
+        patchInfo
+        {
+            type wall;
+        }
+
+        constructFrom set;
+
+        set heater1;
+    }
+
+    {
+        name heater2;
+
+        patchInfo
+        {
+            type wall;
+        }
+
+        constructFrom set;
+
+        set heater2;
+    }
+
+    {
+        name window;
+
+        patchInfo
+        {
+            type wall;
+            inGroup 1(wall);
+        }
+
+        constructFrom set;
+
+        set window;
+    }
+);
+
+// ************************************************************************* //

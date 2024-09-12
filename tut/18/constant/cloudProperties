@@ -1,0 +1,188 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.x                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      particleProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+type              cloud;
+solution
+{
+    active          true;
+    coupled         true;
+    transient       yes;
+    cellValueSourceCorrection off;
+    maxCo	    0.01;
+
+    interpolationSchemes
+    {
+        rho.water         cell;
+        U.water           cellPoint;
+        mu.water          cell;
+	DUcDt		  cell;
+	curlUcDt	  cell;
+    }
+
+    integrationSchemes
+    {
+        U               Euler;
+    }
+
+    sourceTerms
+    {
+        schemes
+        {
+            U semiImplicit 1;
+        }
+    }
+    averagingMethod dual;
+}
+
+constantProperties
+{
+    rho0            1;
+
+    parcelTypeId    1;
+    rhoMin          1e-15;
+    minParcelMass   1e-15;
+    youngsModulus   1e-8;
+    poissonsRatio   1e-8;
+    constantVolume  false;
+    alphaMax        0.99;
+}
+
+subModels
+{
+    particleForces
+    {
+        sphereDrag
+        {
+            alphac alpha.water;
+        }
+        gravity;
+        SaffmanMeiLiftForce
+        {
+            sigma  0.072;
+            U   U.water;
+        }
+    }
+
+    injectionModels
+    {
+        model1
+        {
+            type            patchInjection;//manualInjection;
+	    parcelsPerInjector	1;
+	    patchName	    INLET;
+            massTotal       0;
+            parcelBasisType fixed;
+            nParticle       1;
+            SOI             0;
+	    parcelsPerSecond	293.354;//0.0024*0.04*0.2/(4/3*PI*0.002^3)
+            U0              (0 0.31 0);
+            sizeDistribution
+            {
+                type        fixedValue;
+                fixedValueDistribution
+                {
+		    	value	0.005;
+                }
+            }
+ 	    flowRateProfile	constant 1.92e-5;
+	    duration	200;
+        }
+	
+	/*model1
+        {
+            type            patchInjection;//manualInjection;
+	    parcelsPerInjector	1;
+	    patchName	    INLET;
+            massTotal       0;
+            parcelBasisType fixed;
+            nParticle       1;
+            SOI             0;
+	    parcelsPerSecond	100;//0.0024*0.04*0.2/(4/3*PI*0.002^3)
+            U0              (0 0.31 0);
+            sizeDistribution
+            {
+                type        fixedValue;
+                fixedValueDistribution
+                {
+		    	value	0.0005;
+                }
+            }
+ 	    flowRateProfile	constant 1.92e-5;
+	    duration	200;
+        }*/	
+    }
+
+    dispersionModel gradientDispersionRAS;
+    //dispersionModel none;
+
+    patchInteractionModel localInteraction;
+
+    localInteractionCoeffs
+    {
+        patches
+        (
+            OUTLET
+            {
+                type escape;
+                e    0.97;
+                mu   0.09;
+            }
+            INLET
+            {
+                type escape;
+                e    0.97;
+                mu   0.09;
+            }
+            WALLS
+            {
+                type rebound;
+                e    0.97;
+                mu   0.09;
+            }
+            INLETF
+            {
+                type rebound;
+                e    0.97;
+                mu   0.09;
+            }
+        );
+    }
+
+    StandardWallInteractionCoeffs
+    {
+        type rebound;
+        e    0.97;
+        mu   0.09;
+    }
+
+    heatTransferModel none;
+    surfaceFilmModel none;
+    collisionModel none;
+    stochasticCollisionModel none;
+    radiation off;
+}
+
+
+cloudFunctions
+{
+    voidFraction
+    {
+        type            voidFraction;
+    }
+}
+
+// ************************************************************************* //

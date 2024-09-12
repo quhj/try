@@ -1,0 +1,111 @@
+Tested on OpenFOAM-5.x platform.
+
+1. Open terminal, run:
+	wmake
+
+2. run
+	randomNumber
+
+3. Output:
+
+	Random number = 0.0416303
+	Random number = 0.454492
+	Random number = 0.834817
+	Random number = 0.335986
+	Random number = 0.565489
+	Random number = 0.00176691
+	Random number = 0.18759
+	Random number = 0.990434
+	Random number = 0.750497
+	Random number = 0.366274
+	Random number = 0.351209
+	Random number = 0.573345
+	Random number = 0.132554
+	Random number = 0.0641665
+	Random number = 0.950854
+	Random number = 0.15356
+	Random number = 0.584649
+	Random number = 0.216588
+	Random number = 0.806502
+	Random number = 0.140473
+	Random number = 0.622059
+	Random number = 0.210893
+	Random number = 0.00657788
+	Random number = 0.573299
+	Random number = 0.932664
+	Random number = 0.340327
+	Random number = 0.891081
+	Random number = 0.593873
+	Random number = 0.392896
+	Random number = 0.899323
+	Random number = 0.694994
+	Random number = 0.228603
+	Random number = 0.962459
+	Random number = 0.0120538
+	Random number = 0.110957
+	Random number = 0.884096
+	Random number = 0.116756
+	Random number = 0.750923
+	Random number = 0.296934
+	Random number = 0.646692
+	Random number = 0.42658
+	Random number = 0.500941
+	Random number = 0.314577
+	Random number = 0.436784
+	Random number = 0.660036
+	Random number = 0.702546
+	Random number = 0.774809
+	Random number = 0.813267
+	Random number = 0.319815
+	Random number = 0.982327
+	Random number = 0.679633
+	Random number = 0.150975
+	Random number = 0.876027
+	Random number = 0.696759
+	Random number = 0.377366
+	Random number = 0.564835
+	Random number = 0.474992
+	Random number = 0.272491
+	Random number = 0.939328
+	Random number = 0.259061
+	Random number = 0.540184
+	Random number = 0.64778
+	Random number = 0.569775
+	Random number = 0.509565
+	Random number = 0.203298
+	Random number = 0.0885762
+	Random number = 0.280868
+	Random number = 0.704665
+	Random number = 0.759929
+	Random number = 0.67062
+	Random number = 0.607099
+	Random number = 0.37562
+	Random number = 0.512247
+	Random number = 0.552193
+	Random number = 0.658511
+	Random number = 0.937884
+	Random number = 0.195334
+	Random number = 0.593232
+	Random number = 0.0818416
+	Random number = 0.569725
+	Random number = 0.2674
+	Random number = 0.953097
+	Random number = 0.229342
+	Random number = 0.80176
+	Random number = 0.338136
+	Random number = 0.584941
+	Random number = 0.94525
+	Random number = 0.643744
+	Random number = 0.903235
+	Random number = 0.368426
+	Random number = 0.242004
+	Random number = 0.489496
+	Random number = 0.913949
+	Random number = 0.329182
+	Random number = 0.827234
+	Random number = 0.313347
+	Random number = 0.934031
+	Random number = 0.593341
+	Random number = 0.986934
+	Random number = 0.388857
+		
